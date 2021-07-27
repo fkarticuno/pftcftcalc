@@ -1,175 +1,199 @@
 <html>
-<head>
-  <title>PFT / CFT Calculator</title>
-  <link href="" rel="stylesheet">
-  <script src="" defer></script>
-  <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      font-family: Gotham Rounded, sans-serif;
-      font-weight: normal;
-    }    
+    <head>
+        <title>PFT / CFT Calculator</title>
+        <link href="" rel="stylesheet">
+        <script src="" defer></script>
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                font-family: Gotham Rounded, sans-serif;
+                font-weight: normal;
+            }
 
-    body {
-      padding: 0;
-      margin:  0;
-      background: linear-gradient( 180deg, #004481, #CC101F, #A77C29, #FFD500);
-    }
+            body {
+                padding: 0;
+                margin: 0;
+                background: linear-gradient(180deg, #004481, #CC101F, #A77C29, #FFD500);
+            }
 
-    .CalcGrid {
-      display: grid;
-      justify-content: center;
-      align-content: center;
-      min-height: 100vh;
-      grid-template-columns: repeat(4, 100px);
-      grid-template-rows: minmax(120px, auto) repeat(5, 100px);
-    }
-    .CalcGrid > button, .CalcGrid > input, .CalcGrid > div {
-      cursor: pointer;
-      font-size: 1rem;
-      border: 1px solid white;
-      outline: none;
-      background: rgba(255, 255, 255, .70);
-    }
-    .CalcGrid > button:hover {
-      background-color: rgba(255, 255, 255, .9);
-    }
-  
-    .CalcGrid > .span-three {
-      grid-column: span 3;
-      text-align: center;
-    }
-    .CalcGrid > .rem2 {
-      font-size: 2rem;
-      text-align: center;
-      grid-column: span 2;
-    }
-    .CalcGrid > .rem3 {
-      font-size: 3rem;
-      grid-column: span 2;
-    }
-    .CalcGrid > .centerText {
-      text-align: center;
-      padding-top: 10%;
-      grid-column: span 1;
-    }
-    .CalcGrid > .scoreoutput {
-      grid-column: span 3;
-      text-align: center;
-      font-size: 6rem;
-    }
-    .CalcGrid > .hide {
-      display: none;
-    }
-    .CalcGrid > .CFT {
-      text-align: center;
-      padding-top: 10%;
-    }
+            .CalcGrid {
+                display: grid;
+                /* justify-content: center; */
+                /* align-content: center; */
+                min-height: 100vh;
+                grid-template-columns: repeat(4, 100px);
+                grid-template-rows: minmax(120px, auto) repeat(5, 100px);
+            }
+            .CalcGrid > button,
+            .CalcGrid > input,
+            .CalcGrid > div {
+                cursor: pointer;
+                font-size: 1rem;
+                border: 1px solid white;
+                outline: none;
+                background: rgba(255, 255, 255, 0.70);
+            }
+            .CalcGrid > button:hover {
+                background-color: rgba(255, 255, 255, 0.9);
+            }
 
-  </style>
-</head>
-<body>
-  <div class="CalcGrid">
-    <button style="display: none;"></button>
-    <button class="rem3" id="PFT" onclick="CFT()">PFT</button>
-    <button class="rem3" id="CFT" onclick="PFT()">CFT</button>
-    <button class="PFT">PullUps</button>
-    <button class="PFT">PushUps</button>
-    <div class="CFT hide rem3">MTC</div>
-    <input class="rem2" id="ev1" placeholder="100"/>
-    <button class="PFT">Crunches</button>
-    <button class="PFT">Plank</button>
-    <div class="CFT hide rem3">ACL</div>
-    <input class="rem2" id="ev2" placeholder="100"/>
-    <button class="PFT">Run</button>
-    <button class="PFT">Row</button>
-    <div class="CFT hide rem3">ManUF</div>
-    <input class="rem2" id="ev3" placeholder="100"/>
-    <button>Male</button>
-    <button>Female</button>
-    <div class="centerText" id="age">Age</div>
-    <input id="rem2" placeholder="100"/>
-    <button id="rem2" style="background-color: green;" onclick="calcScore()">Get Score:</button>
-    <div class="span-three, scoreoutput" id="score">000</div>
+            .CalcGrid > .span-three {
+                grid-column: span 3;
+                text-align: center;
+            }
+            .CalcGrid > .rem2 {
+                font-size: 2rem;
+                text-align: center;
+                grid-column: span 2;
+            }
+            .CalcGrid > .rem3 {
+                font-size: 3rem;
+                grid-column: span 2;
+            }
+            .CalcGrid > .centerText {
+                text-align: center;
+                padding-top: 10%;
+                grid-column: span 1;
+            }
+            .CalcGrid > .scoreoutput {
+                grid-column: span 3;
+                text-align: center;
+                font-size: 6rem;
+            }
+            .CalcGrid > .hide {
+                display: none;
+            }
+            .CalcGrid > .CFT {
+                text-align: center;
+                padding-top: 10%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="CalcGrid">
+            <div style="grid-column: span 4;" class="rem2">USMC PFT/CFT Calculator</div>
+            <button style="display: none;"></button>
+            <button class="rem3" id="PFT" onclick="CFT()">PFT</button>
+            <button class="rem3" id="CFT" onclick="PFT()">CFT</button>
+            <button class="PFT">PullUps</button>
+            <button class="PFT">PushUps</button>
+            <div class="CFT hide rem3">MTC</div>
+            <input class="rem2" id="ev1" placeholder="100"/>
+            <button class="PFT">Crunches</button>
+            <button class="PFT">Plank</button>
+            <div class="CFT hide rem3">ACL</div>
+            <input class="rem2" id="ev2" placeholder="100"/>
+            <button class="PFT">Run</button>
+            <button class="PFT">Row</button>
+            <div class="CFT hide rem3">ManUF</div>
+            <input class="rem2" id="ev3" placeholder="100"/>
+            <button>Male</button>
+            <button>Female</button>
+            <div class="centerText  rem3" id="age">Age</div>
+            <input id="rem2" style="font-size: 2rem; text-align: center;" placeholder="100"/>
+            <button id="rem2" style="background-color: green;" onclick="calcScore()">Get Score:</button>
+            <div class="span-three, scoreoutput" id="score">000</div>
 
-    <button id="rndsco" style="color: black" onclick="ransco()">Random</button>
-    <button style="display: none;"></button>
-  </div> 
-</body>
+            <button id="rndsco" style="color: black" onclick="ransco()">Random</button>
+            <button style="display: none;"></button>
+        </div>
+    </body>
 </html>
 
 <script>
-  document.addEventListener('click', (e) => {
-    if ((e.srcElement.localName=="button" && (e.srcElement.innerHTML != "Get Score:")) ){
-      if (e.srcElement.nextElementSibling.style.background == "blue"){
-        e.srcElement.nextElementSibling.style.background = "rgba(255, 255, 255, .7)"
-        e.srcElement.nextElementSibling.style.color ="black"
-      }
-      if (e.srcElement.previousElementSibling.style.background == "blue"){
-        e.srcElement.previousElementSibling.style.background = "rgba(255, 255, 255, .7)"
-        e.srcElement.previousElementSibling.style.color = "black"
-      }
-      if (e.srcElement.localName == "button"){
-      e.srcElement.style.background = "Blue"
-      e.srcElement.style.color = "white"
-      }
-    }
-  })
-  var fitnessTestParams = ["PFT", "male", "17-20",[20,4], [105,80], [1800,2500]]
+    document.addEventListener('click', (e) => {
+        if ((e.srcElement.localName == "button" && (e.srcElement.innerHTML != "Get Score:"))) {
+            if (e.srcElement.nextElementSibling.style.background == "blue") {
+                e.srcElement.nextElementSibling.style.background = "rgba(255, 255, 255, .7)"
+                e.srcElement.nextElementSibling.style.color = "black"
+            }
+            if (e.srcElement.previousElementSibling.style.background == "blue") {
+                e.srcElement.previousElementSibling.style.background = "rgba(255, 255, 255, .7)"
+                e.srcElement.previousElementSibling.style.color = "black"
+            }
+            if (e.srcElement.localName == "button") {
+                e.srcElement.style.background = "Blue"
+                e.srcElement.style.color = "white"
+            }
+        }
+    })
+    var fitnessTestParams = [
+        "PFT",
+        "male",
+        "17-20",
+        [
+            20, 4
+        ],
+        [
+            105, 80
+        ],
+        [
+            1800, 2500
+        ]
+    ]
 
-  document.addEventListener('click', e => {
-    if (e.srcElement.innerHTML=="CFT") {
-      fitnessTestParams[0] = "CFT"
-    }
-    if (e.srcElement.innerHTML=="PushUps") {
-      fitnessTestParams[3]= 82
-    }
-    if (e.srcElement.innerHTML=="PullUps") {
-      fitnessTestParams[3]= 20
-    }
-    console.log("fitnessTestParams = " + fitnessTestParams)
-  })
-
-  function PFT() {
-    Array.from(document.getElementsByClassName("PFT")).forEach(e => {e.className = "PFT hide"} )
-    Array.from(document.getElementsByClassName("CFT")).forEach(e => {e.className = "CFT rem3"} )
-  }
-  function CFT() {
-    Array.from(document.getElementsByClassName("CFT")).forEach(e => {e.className = "CFT hide"} )
-    Array.from(document.getElementsByClassName("PFT")).forEach(e => {e.className = "PFT"} )
-  }
-  
-  function calcScore() {
-    var score = 0
-    var ev1 = parseInt(document.getElementById("ev1").value)
-    var ev2 = parseInt(document.getElementById("ev2").value)
-    var ev3 = parseInt(document.getElementById("ev3").value)
-    var scoreCorrection = [ev1, ev2, ev3]
-
-    console.log("Points: " + scoreCorrection)
-
-    ev1<fitnessTestParams[3][1] ? ev1=0 : ev1=(parseInt(ev1)/fitnessTestParams[3][0])*100
-    ev2<fitnessTestParams[4][1] ? ev2=0 : ev2=(parseInt(ev2)/fitnessTestParams[4][0])*100
-    ev3>fitnessTestParams[5][1] ? ev3=0 : ev3=((fitnessTestParams[5][0]*2)-((parseInt(ev3)))/fitnessTestParams[5][0])*100
-
-    scoreCorrection = [ev1, ev2, ev3]
-
-    scoreCorrection.forEach(e => {
-      e>100 ? e=100 : e = e
-      score = score + e
+    document.addEventListener('click', e => {
+        if (e.srcElement.innerHTML == "CFT") {
+            fitnessTestParams[0] = "CFT"
+        }
+        if (e.srcElement.innerHTML == "PushUps") {
+            fitnessTestParams[3] = 82
+        }
+        if (e.srcElement.innerHTML == "PullUps") {
+            fitnessTestParams[3] = 20
+        }
+        console.log("fitnessTestParams = " + fitnessTestParams)
     })
 
-    console.log("Score: " + scoreCorrection)
-    document.getElementById("score").innerHTML = Math.round(score)
-  }
+    function PFT() {
+        Array.from(document.getElementsByClassName("PFT")).forEach(e => {
+            e.className = "PFT hide"
+        })
+        Array.from(document.getElementsByClassName("CFT")).forEach(e => {
+            e.className = "CFT rem3"
+        })
+    }
+    function CFT() {
+        Array.from(document.getElementsByClassName("CFT")).forEach(e => {
+            e.className = "CFT hide"
+        })
+        Array.from(document.getElementsByClassName("PFT")).forEach(e => {
+            e.className = "PFT"
+        })
+    }
 
-  function getRand(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
-  }
-  function ransco() {
-    document.getElementById("ev1").value = getRand(3,21)
-    document.getElementById("ev2").value = getRand(33,110)
-    document.getElementById("ev3").value = getRand(1000,4000)
-  }
+    function calcScore() {
+        var score = 0
+        var ev1 = parseInt(document.getElementById("ev1").value)
+        var ev2 = parseInt(document.getElementById("ev2").value)
+        var ev3 = parseInt(document.getElementById("ev3").value)
+        var scoreCorrection = [ev1, ev2, ev3]
 
+        console.log("Points: " + scoreCorrection)
+
+        ev1 < fitnessTestParams[3][1] ? ev1 = 0 : ev1 = (parseInt(ev1) / fitnessTestParams[3][0]) * 100
+        ev2 < fitnessTestParams[4][1] ? ev2 = 0 : ev2 = (parseInt(ev2) / fitnessTestParams[4][0]) * 100
+        ev3 > fitnessTestParams[5][1] ? ev3 = 0 : ev3 = ((fitnessTestParams[5][0] * 2) - ((parseInt(ev3))) / fitnessTestParams[5][0]) * 100
+
+        scoreCorrection = [ev1, ev2, ev3]
+
+        scoreCorrection.forEach(e => {
+            e > 100 ? e = 100 : e = e
+            score = score + e
+        })
+
+        console.log("Score: " + scoreCorrection)
+        document.getElementById("score").innerHTML = Math.round(score)
+    }
+
+    function getRand(min, max) {
+        return Math.floor(Math.random() * (max - min) + min);
+    }
+    function ransco() {
+        document.getElementById("ev1").value = getRand(3, 21)
+        document.getElementById("ev2").value = getRand(33, 110)
+        document.getElementById("ev3").value = getRand(1000, 4000)
+    }
 </script>
