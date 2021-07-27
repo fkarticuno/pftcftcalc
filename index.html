@@ -16,7 +16,7 @@
                 padding: 0;
                 margin: 0;
                 background: linear-gradient(180deg, #004481, #CC101F, #A77C29, #FFD500);
-                background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/3ec8bf4c-abf7-4a2b-ae45-78274f23ee5d/d9z4jks-b13e1fea-b9e1-43a5-b3f3-b90945ea77b5.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzNlYzhiZjRjLWFiZjctNGEyYi1hZTQ1LTc4Mjc0ZjIzZWU1ZFwvZDl6NGprcy1iMTNlMWZlYS1iOWUxLTQzYTUtYjNmMy1iOTA5NDVlYTc3YjUuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.CjPVIcpmHc9xYwiW_70C5vW8Gz_c0Io6w77O9x_1xYc")
+                background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/3ec8bf4c-abf7-4a2b-ae45-78274f23ee5d/d9z4jks-b13e1fea-b9e1-43a5-b3f3-b90945ea77b5.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzNlYzhiZjRjLWFiZjctNGEyYi1hZTQ1LTc4Mjc0ZjIzZWU1ZFwvZDl6NGprcy1iMTNlMWZlYS1iOWUxLTQzYTUtYjNmMy1iOTA5NDVlYTc3YjUuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.CjPVIcpmHc9xYwiW_70C5vW8Gz_c0Io6w77O9x_1xYc");
             }
 
             .CalcGrid {
@@ -34,10 +34,10 @@
                 font-size: 1rem;
                 border: 1px solid white;
                 outline: none;
-                background: rgba(255, 255, 255, 0.70);
+                background: rgba(255, 255, 255, 0.9);
             }
             .CalcGrid > button:hover {
-                background-color: rgba(255, 255, 255, 0.9);
+                background-color: rgba(255, 255, 255, 0.95);
             }
 
             .CalcGrid > .span-three {
@@ -105,17 +105,17 @@
 <script>
     document.addEventListener('click', (e) => {
         if ((e.srcElement.localName == "button" && (e.srcElement.innerHTML != "Get Score:"))) {
-            if (e.srcElement.nextElementSibling.style.background == "blue") {
-                e.srcElement.nextElementSibling.style.background = "rgba(255, 255, 255, .7)"
+            if (e.srcElement.nextElementSibling.style.background == "rgba(75, 140, 157, 0.9)") {
+                e.srcElement.nextElementSibling.style.background = "rgba(255, 255, 255, .9)"
                 e.srcElement.nextElementSibling.style.color = "black"
             }
-            if (e.srcElement.previousElementSibling.style.background == "blue") {
-                e.srcElement.previousElementSibling.style.background = "rgba(255, 255, 255, .7)"
+            if (e.srcElement.previousElementSibling.style.background == "rgba(75, 140, 157, 0.9)") {
+                e.srcElement.previousElementSibling.style.background = "rgba(255, 255, 255, .9)"
                 e.srcElement.previousElementSibling.style.color = "black"
             }
             if (e.srcElement.localName == "button") {
-                e.srcElement.style.background = "Blue"
-                e.srcElement.style.color = "white"
+                e.srcElement.style.background = "rgba(75, 140, 157, 0.9)"
+                e.srcElement.style.color = "black"
             }
         }
     })
@@ -139,10 +139,10 @@
             fitnessTestParams[0] = "CFT"
         }
         if (e.srcElement.innerHTML == "PushUps") {
-            fitnessTestParams[3] = 82
+            fitnessTestParams[3] = [67, 82]
         }
         if (e.srcElement.innerHTML == "PullUps") {
-            fitnessTestParams[3] = 20
+            fitnessTestParams[3] = [4, 20]
         }
         console.log("fitnessTestParams = " + fitnessTestParams)
     })
@@ -192,8 +192,8 @@
         return Math.floor(Math.random() * (max - min) + min);
     }
     function ransco() {
-        document.getElementById("ev1").value = getRand(3, 21)
-        document.getElementById("ev2").value = getRand(33, 110)
-        document.getElementById("ev3").value = getRand(1000, 4000)
+        document.getElementById("ev1").value = getRand(fitnessTestParams[3][0] - 1, fitnessTestParams[3][1])
+        document.getElementById("ev2").value = getRand(fitnessTestParams[4][0] - 1, fitnessTestParams[4][1])
+        document.getElementById("ev3").value = getRand(fitnessTestParams[5][0] - 1, fitnessTestParams[5][1])
     }
 </script>
