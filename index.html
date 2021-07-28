@@ -22,10 +22,8 @@
             .CalcGrid {
                 display: grid;
                 justify-content: center;
-                align-content: center;
-                min-height: 100vh;
-                grid-template-columns: repeat(4, 100px);
-                grid-template-rows: minmax(120px, auto) repeat(5, 100px);
+                grid-template-columns: repeat(4, 20vw);
+                grid-template-rows: repeat(5, 15vh)
             }
             .CalcGrid > button,
             .CalcGrid > input,
@@ -51,6 +49,8 @@
             }
             .CalcGrid > .rem3 {
                 font-size: 3rem;
+            }
+            .CalcGrid > .span-two {
                 grid-column: span 2;
             }
             .CalcGrid > .centerText {
@@ -70,34 +70,37 @@
                 text-align: center;
                 padding-top: 10%;
             }
+            
         </style>
     </head>
     <body>
         <div class="CalcGrid">
+            <div style="grid-column: span 4; grid-row: 10vh; visibility: hidden;"></div>
             <button style="display: none;"></button>
-            <button class="rem3" id="PFT" onclick="CFT()">PFT</button>
-            <button class="rem3" id="CFT" onclick="PFT()">CFT</button>
-            <button class="PFT">PullUps</button>
-            <button class="PFT">PushUps</button>
+            <button class="rem3 span-two" id="PFT" onclick="CFT()">PFT</button>
+            <button class="rem3 span-two" id="CFT" onclick="PFT()">CFT</button>
+            <button class="rem3 PFT">PullUps</button>
+            <button class="rem3 PFT">PushUps</button>
             <div class="CFT hide rem3">MTC</div>
             <input class="rem2" id="ev1" placeholder="100"/>
-            <button class="PFT">Crunches</button>
-            <button class="PFT">Plank</button>
+            <button class="rem3 PFT">Crunches</button>
+            <button class="rem3 PFT">Plank</button>
             <div class="CFT hide rem3">ACL</div>
             <input class="rem2" id="ev2" placeholder="100"/>
-            <button class="PFT">Run</button>
-            <button class="PFT">Row</button>
+            <button class="rem3 PFT">Run</button>
+            <button class="rem3 PFT">Row</button>
             <div class="CFT hide rem3">ManUF</div>
             <input class="rem2" id="ev3" placeholder="100"/>
-            <button>Male</button>
-            <button>Female</button>
+            <button class="rem3">Male</button>
+            <button class="rem3">Female</button>
             <div class="centerText  rem3" id="age">Age</div>
-            <input id="rem2" style="font-size: 2rem; text-align: center;" placeholder="100"/>
-            <button id="rem2" style="background-color: green;" onclick="calcScore()">Get Score:</button>
+            <input style="font-size: 2rem; text-align: center;" id="agesel" placeholder="100"/>
+            <button id="rem2" class="rem3" style="background-color: green;" onclick="calcScore()">Get Score:</button>
             <div class="span-three, scoreoutput" id="score">000</div>
 
-            <button id="rndsco" style="color: black" onclick="ransco()">Random</button>
+            <button id="rndsco" style="color: black; grid-column: span 4;" onclick="ransco()">Random</button>
             <button style="display: none;"></button>
+    
         </div>
     </body>
 </html>
@@ -119,32 +122,32 @@
             }
         }
     })
-    var fitnessTestParams = [
-        "PFT",
-        "male",
-        "17-20",
-        [
-            20, 4
-        ],
-        [
-            105, 80
-        ],
-        [
-            1800, 2500
-        ]
-    ]
+    var fitnessTestParams = ["PFT", "male","17-20",[20, 4], [105, 70],[1800, 2740]]
+    var gender = ["male","female"]
+    var ageRange = [[17,20],[21,25]]
+    var ageRangeSel = 0
+    var ev1ScoreRangeAm = [[4,20],[5,23]]           //male pull up
+    var ev1ScoreRangeBm = [[42,82],[40,87]]         //male push up
+    var ev1ScoreRangeCm = [[240,345],[238,345]]     //male movement to contact 
 
-    document.addEventListener('click', e => {
+    var ev2ScoreRangeAm = [[70,105],[70,110]]       //male crunches
+    var ev2ScoreRangeBm = []                        //no data on planks
+    var ev2ScoreRangeCm = [[62,106],[67,115]]       //male ammo can lift
+
+    var ev3ScoreRangeAm = [[1800,2740],[1800,2740]] //male 3mi run
+    var ev3ScoreRangeBm = [[1800,2330],[1815,2350]] //male 5km row
+    var ev3ScoreRangeCm = [[207,317],[204,318]]     //male manuver under fire
+
+    document.addEventListener('click', e => {        
         if (e.srcElement.innerHTML == "CFT") {
             fitnessTestParams[0] = "CFT"
         }
         if (e.srcElement.innerHTML == "PushUps") {
-            fitnessTestParams[3] = [67, 82]
+            fitnessTestParams[3] = [ev1ScoreRangeAm[ageRangeSel][0], ev1ScoreRangeAm[ageRangeSel][1]]
         }
         if (e.srcElement.innerHTML == "PullUps") {
-            fitnessTestParams[3] = [4, 20]
+            fitnessTestParams[3] = [ev1ScoreRangeBm[ageRangeSel][0], ev1ScoreRangeBm[ageRangeSel][1]]
         }
-        console.log("fitnessTestParams = " + fitnessTestParams)
     })
 
     function PFT() {
@@ -169,22 +172,34 @@
         var ev1 = parseInt(document.getElementById("ev1").value)
         var ev2 = parseInt(document.getElementById("ev2").value)
         var ev3 = parseInt(document.getElementById("ev3").value)
+        var age = parseInt(document.getElementById("agesel").value)
+
+        for (let i = 0; i < ageRange.length; i++) {
+            if (age>=ageRange[i][0] && age<=ageRange[i][1]) {
+            ageRangeSel = i ;
+            fitnessTestParams[2] = ageRange[i]
+            fitnessTestParams[3] = ev1ScoreRangeAm[ageRangeSel]
+            fitnessTestParams[4] = ev2ScoreRangeAm[ageRangeSel]
+            fitnessTestParams[5] = ev3ScoreRangeAm[ageRangeSel]
+            console.log("Fitness Test Parameters: " + fitnessTestParams)
+            }
+        }
+
         var scoreCorrection = [ev1, ev2, ev3]
 
-        console.log("Points: " + scoreCorrection)
+        console.log("Points: " + scoreCorrection + " Age: " + age)
 
-        ev1 < fitnessTestParams[3][1] ? ev1 = 0 : ev1 = (parseInt(ev1) / fitnessTestParams[3][0]) * 100
-        ev2 < fitnessTestParams[4][1] ? ev2 = 0 : ev2 = (parseInt(ev2) / fitnessTestParams[4][0]) * 100
-        ev3 > fitnessTestParams[5][1] ? ev3 = 0 : ev3 = ((fitnessTestParams[5][0] * 2) - ((parseInt(ev3))) / fitnessTestParams[5][0]) * 100
+        ev1 < fitnessTestParams[3][0] ? ev1 = 0 : ev1 = (parseInt(ev1) / fitnessTestParams[3][1]) * 100
+        ev2 < fitnessTestParams[4][0] ? ev2 = 0 : ev2 = (parseInt(ev2) / fitnessTestParams[4][1]) * 100 
+        ev3 > fitnessTestParams[5][1] ? ev3 = 0 : ev3 = (fitnessTestParams[5][0] / parseInt(ev3)) * 100
 
         scoreCorrection = [ev1, ev2, ev3]
-
+        
         scoreCorrection.forEach(e => {
             e > 100 ? e = 100 : e = e
             score = score + e
         })
-
-        console.log("Score: " + scoreCorrection)
+        console.log("Rough Score: " + scoreCorrection +  " = " + Math.round(score))
         document.getElementById("score").innerHTML = Math.round(score)
     }
 
@@ -192,8 +207,9 @@
         return Math.floor(Math.random() * (max - min) + min);
     }
     function ransco() {
-        document.getElementById("ev1").value = getRand(fitnessTestParams[3][0] - 1, fitnessTestParams[3][1]+1)
-        document.getElementById("ev2").value = getRand(fitnessTestParams[4][0] - 1, fitnessTestParams[4][1]+1)
-        document.getElementById("ev3").value = getRand(fitnessTestParams[5][0] - 1, fitnessTestParams[5][1]+1)
+        document.getElementById("ev1").value = getRand(fitnessTestParams[3][0]-1, fitnessTestParams[3][1]+1)
+        document.getElementById("ev2").value = getRand(fitnessTestParams[4][0]-1, fitnessTestParams[4][1]+1)
+        document.getElementById("ev3").value = getRand(fitnessTestParams[5][0]-1, fitnessTestParams[5][1]+1)
+        document.getElementById("agesel").value = getRand(ageRange[0][0]-1, ageRange[ageRange.length -1][1]+1)
     }
 </script>
