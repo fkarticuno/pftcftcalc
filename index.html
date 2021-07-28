@@ -22,14 +22,13 @@
             .CalcGrid {
                 display: grid;
                 justify-content: center;
-                grid-template-columns: repeat(4, 20vw);
+                margin-top: 5vh;
+                grid-template-columns: repeat(4, 23vw);
                 grid-template-rows: repeat(5, 15vh)
             }
-            .CalcGrid > button,
-            .CalcGrid > input,
-            .CalcGrid > div {
+            .CalcGrid > button, .CalcGrid > input, .CalcGrid > div {
                 cursor: pointer;
-                font-size: 1rem;
+                font-size: 3rem;
                 border: 1px solid white;
                 outline: none;
                 background: rgba(255, 255, 255, 0.9);
@@ -69,13 +68,28 @@
             .CalcGrid > .CFT {
                 text-align: center;
                 padding-top: 10%;
+                grid-column: span 2 ;
             }
-            
+            #rawdata {
+                background-color: aliceblue;
+                position: absolute;
+                bottom: 0px;
+                overflow: auto, scroll;
+                font-size: 1.6rem;
+            }
+            .hide {
+                display: none;
+            }
+            #notice {
+                position: absolute;
+                background-color: aliceblue;
+            }
         </style>
     </head>
     <body>
+        <div id="notice"> Current features: <br> Male (17-25) standard PFT <br> (PullUps-Crunches-Run) <br> 07/27/21 </div>
         <div class="CalcGrid">
-            <div style="grid-column: span 4; grid-row: 10vh; visibility: hidden;"></div>
+            
             <button style="display: none;"></button>
             <button class="rem3 span-two" id="PFT" onclick="CFT()">PFT</button>
             <button class="rem3 span-two" id="CFT" onclick="PFT()">CFT</button>
@@ -93,12 +107,13 @@
             <input class="rem2" id="ev3" placeholder="100"/>
             <button class="rem3">Male</button>
             <button class="rem3">Female</button>
-            <div class="centerText  rem3" id="age">Age</div>
+            <div class="centerText rem3" id="age">Age</div>
             <input style="font-size: 2rem; text-align: center;" id="agesel" placeholder="100"/>
             <button id="rem2" class="rem3" style="background-color: green;" onclick="calcScore()">Get Score:</button>
             <div class="span-three, scoreoutput" id="score">000</div>
 
-            <button id="rndsco" style="color: black; grid-column: span 4;" onclick="ransco()">Random</button>
+            <button id="rndsco" style="color: black; grid-column: span 4; padding: 2.5vh;" onclick="ransco()">Random</button>
+            <div id="rawdata"> </div>
             <button style="display: none;"></button>
     
         </div>
@@ -142,11 +157,26 @@
         if (e.srcElement.innerHTML == "CFT") {
             fitnessTestParams[0] = "CFT"
         }
+        if (e.srcElement.innerHTML == "PFT") {
+            fitnessTestParams[0] = "PFT"
+        }
         if (e.srcElement.innerHTML == "PullUps") {
             fitnessTestParams[3] = [ev1ScoreRangeAm[ageRangeSel][0], ev1ScoreRangeAm[ageRangeSel][1]]
         }
         if (e.srcElement.innerHTML == "PushUps") {
             fitnessTestParams[3] = [ev1ScoreRangeBm[ageRangeSel][0], ev1ScoreRangeBm[ageRangeSel][1]]
+        }
+        if (e.srcElement.id == "rawdata") {
+            e.srcElement.className = "hide"   
+        }
+        if (e.srcElement.id == "notice") {
+            e.srcElement.className = "hide"   
+        }
+        if (e.srcElement.innerHTML == "Male") {
+            fitnessTestParams[1] = "male"
+        }
+        if (e.srcElement.innerHTML == "Female") {
+            fitnessTestParams[1] = "female"
         }
     })
 
@@ -155,7 +185,7 @@
             e.className = "PFT hide"
         })
         Array.from(document.getElementsByClassName("CFT")).forEach(e => {
-            e.className = "CFT rem3"
+            e.className = "CFT centerText rem3"
         })
     }
     function CFT() {
@@ -163,7 +193,7 @@
             e.className = "CFT hide"
         })
         Array.from(document.getElementsByClassName("PFT")).forEach(e => {
-            e.className = "PFT"
+            e.className = "PFT rem3"
         })
     }
 
@@ -201,6 +231,8 @@
         })
         console.log("Rough Score: " + scoreCorrection +  " = " + Math.round(score))
         document.getElementById("score").innerHTML = Math.round(score)
+        document.getElementById("rawdata").innerHTML = "Fitness Test Parameters: " + fitnessTestParams  + "<br>" + "Scoring: " + scoreCorrection + " Age: " + age + "<br>" + "Score: "+  Math.round(score) + "<br>" + "CLICK to remove"
+        document.getElementById("rawdata").className = ""
     }
 
     function getRand(min, max) {
