@@ -84,6 +84,9 @@
                 position: absolute;
                 background-color: aliceblue;
             }
+            #ev1a, #ev1b, #ev2a, #ev2b, #ev3a, #ev3b {
+                grid-column: span 1;
+            }
         </style>
     </head>
     <body>
@@ -96,19 +99,22 @@
             <button class="rem3 PFT">PullUps</button>
             <button class="rem3 PFT">PushUps</button>
             <div class="CFT hide rem3">MTC</div>
-            <input class="rem2" id="ev1" placeholder="100"/>
+            <input class="rem2" id="ev1a" placeholder="100"/>
+            <input class="rem2" id="ev1b" placeholder="100"/>
             <button class="rem3 PFT">Crunches</button>
             <button class="rem3 PFT">Plank</button>
             <div class="CFT hide rem3">ACL</div>
-            <input class="rem2" id="ev2" placeholder="100"/>
+            <input class="rem2" id="ev2a" placeholder="100"/>
+            <input class="rem2" id="ev2b" placeholder="100"/>
             <button class="rem3 PFT">Run</button>
             <button class="rem3 PFT">Row</button>
             <div class="CFT hide rem3">ManUF</div>
-            <input class="rem2" id="ev3" placeholder="100"/>
+            <input class="rem2" id="ev3a" placeholder="99"/>
+            <input class="rem2" id="ev3b" placeholder="99"/>
             <button class="rem3">Male</button>
             <button class="rem3">Female</button>
             <div class="centerText rem3" id="age">Age</div>
-            <input style="font-size: 2rem; text-align: center;" id="agesel" placeholder="100"/>
+            <input style="font-size: 2rem; text-align: center;" id="agesel" placeholder="99"/>
             <button id="rem2" class="rem3" style="background-color: green;" onclick="calcScore()">Get Score:</button>
             <div class="span-three, scoreoutput" id="score">000</div>
 
@@ -199,9 +205,15 @@
 
     function calcScore() {
         var score = 0
-        var ev1 = parseInt(document.getElementById("ev1").value)
-        var ev2 = parseInt(document.getElementById("ev2").value)
-        var ev3 = parseInt(document.getElementById("ev3").value)
+        var ev1a = document.getElementById("ev1a").value
+        var ev1b = document.getElementById("ev1b").value
+        var ev1 = parseInt(ev1a+ev1b)
+        var ev2a = document.getElementById("ev2a").value
+        var ev2b = document.getElementById("ev2b").value
+        var ev2 = parseInt(ev2a+ev2b)
+        var ev3a = document.getElementById("ev3a").value
+        var ev3b = document.getElementById("ev3b").value
+        var ev3 = parseInt(ev3a+ev3b)
         var age = parseInt(document.getElementById("agesel").value)
 
         for (let i = 0; i < ageRange.length; i++) {
@@ -239,9 +251,12 @@
         return Math.floor(Math.random() * (max - min) + min);
     }
     function ransco() {
-        document.getElementById("ev1").value = getRand(fitnessTestParams[3][0]-1, fitnessTestParams[3][1]+1)
-        document.getElementById("ev2").value = getRand(fitnessTestParams[4][0]-1, fitnessTestParams[4][1]+1)
-        document.getElementById("ev3").value = getRand(fitnessTestParams[5][0]-1, fitnessTestParams[5][1]+1)
-        document.getElementById("agesel").value = getRand(ageRange[0][0]-1, ageRange[ageRange.length -1][1]+1)
+        document.getElementById("ev1a").value = Math.round((getRand(fitnessTestParams[3][0]-1, fitnessTestParams[3][1]+1))/10)
+        document.getElementById("ev1b").value = Math.round((getRand(fitnessTestParams[3][0]-1, fitnessTestParams[3][1]+1))/10)
+        document.getElementById("ev2a").value = Math.round((getRand(fitnessTestParams[4][0]-1, fitnessTestParams[4][1]+1))/100)
+        document.getElementById("ev2b").value = Math.round((getRand(fitnessTestParams[4][0]-1, fitnessTestParams[4][1]+1))/100)
+        document.getElementById("ev3a").value = Math.round((getRand(fitnessTestParams[5][0]-1, fitnessTestParams[5][1]+1))/100)
+        document.getElementById("ev3b").value = Math.round((getRand(fitnessTestParams[5][0]-1, fitnessTestParams[5][1]+1))/100)
+        document.getElementById("agesel").value = getRand(ageRange[0][0], ageRange[ageRange.length -1][1])
     }
 </script>
